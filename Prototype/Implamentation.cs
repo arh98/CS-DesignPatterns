@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Prototype;
 //ProtoType : 
 public abstract class Person {
     public abstract string Name { get; set; }
-    public abstract Person Clone();
+    public abstract Person Clone(bool deepClone);
 }
 
 //concrete-ProtoType 1
@@ -18,8 +19,13 @@ public class Manager : Person {
     public Manager(string name) {
         Name = name;
     }
-    public override Person Clone() {
-        //create a shallow copy of existing obj
+    public override Person Clone(bool deepClone = false) {
+        //create a deep-copy of existing obj
+        if (deepClone) {
+            var objAsJson = JsonConvert.SerializeObject(this);
+            return JsonConvert.DeserializeObject<Manager>(objAsJson);
+        }
+        //create a shallow-copy of existing obj
         return (Person)MemberwiseClone();
     }
 }
@@ -32,7 +38,11 @@ public class Employee : Person {
         Name = name;
         Manager = manager;
     }
-    public override Person Clone() {
+    public override Person Clone(bool deepClone = false) {
+        if(deepClone) {
+            var objAsJson = JsonConvert.SerializeObject(this);
+            return JsonConvert.DeserializeObject<Employee>(objAsJson);
+        }
         return (Person)MemberwiseClone();
     }
 }
