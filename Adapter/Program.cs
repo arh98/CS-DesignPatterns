@@ -1,4 +1,5 @@
-﻿using Adapter;
+﻿using ClassAdapter;
+//using ObjectAdapter;
 
 //testing object adapter :
 ICityAdapter cityAdapter = new CityAdapter();

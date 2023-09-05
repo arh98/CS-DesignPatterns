@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adapter;
-
+namespace ObjectAdapter;
 public class CityFromExtenalSystem {
     public string Name { get; private set; }
     public string NickName { get; private set; }
